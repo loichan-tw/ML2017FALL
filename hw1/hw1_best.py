@@ -8,8 +8,12 @@ def test(w,w2,b):
   x_te = np.zeros((240,27),dtype = np.float)
   with open(sys.argv[1]) as fp:
     id_ = 0
+    ids = []
+    i=0
     for line in fp:
       vector = line.strip().split(',')
+      if i%18 == 1:
+        ids.append(vector[0])
       if vector[1] == 'PM2.5':
         x_te[id_,:9] = vector[2:]
         id_ += 1
