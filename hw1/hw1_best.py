@@ -2,10 +2,11 @@ import numpy as np
 import pandas as pd
 import time
 import pickle
+import sys
 
 def test(w,w2,b):
   x_te = np.zeros((240,27),dtype = np.float)
-  with open('./data/test.csv') as fp:
+  with open(sys.argv[1]) as fp:
     id_ = 0
     for line in fp:
       vector = line.strip().split(',')
@@ -18,7 +19,7 @@ def test(w,w2,b):
         x_te[id_,18:] = vector[2:]
   
   y_te = b + x_te.dot(w) + np.square(x_te).dot(w2)# + np.power(x_te,3).dot(w3)# + np.power(x_te,4).dot(w4) + np.power(x_te,5).dot(w5)
-  with open('./result/res.csv','w') as fp:
+  with open(sys.argv[2],'w') as fp:
     fp.write('id,value\n')
     for i in range(240):
       fp.write('id_' + str(i) + ',' + str(y_te[i,0]) + '\n')
